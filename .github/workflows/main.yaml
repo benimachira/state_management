@@ -38,10 +38,10 @@ jobs:
         run: flutter build apk --debug --split-per-abi
 
       - name: List APKs Directory
-          run: ls -R build/app/outputs/apk/debug/
+        run: ls -R build/app/outputs/apk/debug/
 
       - name: Print APKs Path
-        run:
+        run: |
           echo "APK Path: $(ls -d build/app/outputs/apk/debug/*)"
 
       - name: Push to Release
@@ -51,4 +51,3 @@ jobs:
             build/app/outputs/apk/debug/* # Only include Android artifacts
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
-
