@@ -38,7 +38,7 @@ jobs:
         run: flutter build apk --debug --split-per-abi
 
       - name: List APKs Directory
-        run: ls -R build/app/outputs/apk/debug/
+          run: ls -R build/app/outputs/apk/debug/
 
       - name: Print APKs Path
         run:
@@ -48,7 +48,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            build/app/outputs/apk/debug/*
+            build/app/outputs/apk/debug/* # Only include Android artifacts
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
 
