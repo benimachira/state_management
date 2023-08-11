@@ -1,0 +1,47 @@
+name: Build and Release
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 12.x
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.x # Adjust the Flutter version as needed
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build APKs
+        run: flutter build apk --debug --split-per-abi
+
+      - name: Push to Release
+          uses: ncpolo/release-action@v1
+          with:
+            artifacts: "build/app/outputs/apk/debug/*"
+            tag: v1.0.${{github.run_number}}
+            token: ${{secrets.TOKEN}}
