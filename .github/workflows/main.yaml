@@ -47,3 +47,4 @@ jobs:
             build/ios/iphoneos/Runner.app # Add the iOS artifact
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
+          distribution: github # Specify the distribution provider
