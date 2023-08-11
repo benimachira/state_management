@@ -36,9 +36,14 @@ jobs:
       - name: Build APKs
         run: flutter build apk --debug --split-per-abi
 
+      - name: Build iOS App
+        run: flutter build ios --debug --no-codesign
+
       - name: Push to Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*"
+          artifacts: |
+            build/app/outputs/apk/debug/*,
+            build/ios/iphoneos/Runner.app # Add the iOS artifact
           tag: v1.0.${{ github.run_number }}
-          token: ${{  secrets.TOKEN }}
+          token: ${{ secrets.TOKEN }}
